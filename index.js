@@ -205,6 +205,16 @@
   };
 
   /**
+   * Refresh current page, call dispatcher again
+   */
+
+
+  page.refresh = function() {
+    var ctx = new Context(page.current, null);
+    page.dispatch(ctx, true);
+  };
+
+  /**
    * Goes back in the history
    * Back should always let the current route push state and then go back.
    *
@@ -283,11 +293,11 @@
    * @api private
    */
 
-  page.dispatch = function(ctx) {
+  page.dispatch = function(ctx, force) {
     var prev = prevContext,
       i = 0,
       j = 0;
-    if (prev && prev.path === ctx.path) {
+    if (prev && prev.path === ctx.path && !force) {
       return;
     }
     prevContext = ctx;
