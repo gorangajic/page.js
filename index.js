@@ -195,6 +195,9 @@
 
   page.show = function(path, state, dispatch, push) {
     var ctx = new Context(path, state);
+    if (ctx.path === page.current && !dispatch) {
+      return false;
+    }
     page.current = ctx.path;
     if (false !== dispatch) page.dispatch(ctx);
     if (false !== ctx.handled && false !== push) ctx.pushState();
